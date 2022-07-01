@@ -13,6 +13,7 @@ function Layout() {
                             <div className="navbar-nav">
                                 <Link className="nav-link" id='enlaces' to="/nuevo">Registrar</Link>
                                 <Link className="nav-link" id='enlaces' to="/favoritos">Favoritos</Link>
+                                <Link className="nav-link" id='enlaces' to="/carrito">Carrito</Link>
                             </div>
                         </div>
                     </div>
