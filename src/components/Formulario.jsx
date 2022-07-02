@@ -8,6 +8,7 @@ function Formulario({ juego, setJuego }) {
     const [tipo, setTipo] = useState("");
     const [precio, setPrecio] = useState(0);
     const [imagen, setImagen] = useState("");
+    const [exito, setExito]=useState(false);
     const [error, setError] = useState(false);
 
     function handleSubmit(e) {
@@ -27,17 +28,22 @@ function Formulario({ juego, setJuego }) {
 
         //Guardando juego
         setError(false);
+        setExito(true);
         objetoJuego.id = generarId();
         setJuego([...juego, objetoJuego]);
         setNombre("");
         setTipo("");
         setPrecio(0);
         setImagen("");
+
+        setTimeout(()=>{
+            setExito(false);
+        }, 1000);
     }
     return (
         <div className='shadow p-3 mb-5 bg-white rounded w-50' id='contenido'>
             <form onSubmit={handleSubmit}>
-                {error ? <Error mensaje="Todos Los Campos son Obligatorios" /> : null}
+                {error ? <Error mensaje="Todos Los Campos son Obligatorios" /> : exito ? <Exito mensaje="Registrado con éxito"/> : null}
                 <div className="mb-3">
                     <label htmlFor="nombre" className="form-label">Nombre del Juego</label>
                     <input type="text" className="form-control" id="nombre" placeholder="Ingrese Nombre del Juego" value={nombre} onChange={(e) => { setNombre(e.target.value) }} />

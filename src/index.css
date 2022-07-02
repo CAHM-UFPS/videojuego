@@ -15,7 +15,7 @@ h1{
     font: bold;
     color:chocolate;
     text-transform: uppercase;
-    margin-bottom: 5rem;
+    margin-top: 5rem;
 }
 
 h3{
@@ -31,4 +31,12 @@ td{
 
 #contenido{
     margin: 0 auto;
+}
+
+#titulo-1{
+    margin-top: 2rem;
+}
+
+#titulo-2{
+    margin-top: 1rem;
 }

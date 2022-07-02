@@ -1,5 +1,4 @@
 import Formulario from "../components/Formulario";
-import {useState} from 'react';
 
 function NuevoJuego({juego, setJuego}){
     return(
