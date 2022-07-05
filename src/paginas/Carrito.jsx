@@ -7,7 +7,7 @@ function Carrito({ carrito, setCarrito }) {
 
     useEffect(() => {
         const sumar = carrito.reduce((sumatoria, act) => {
-            return sumatoria += Number(act.precio);
+            return sumatoria += Number(act.precio)*act.cantidad;
         }, 0);
 
         setTotal(sumar);
@@ -31,16 +31,31 @@ function Carrito({ carrito, setCarrito }) {
     }
 
     function handleAumentar(obj) {
-        /**
-         * obtener el id del objeto al cual presiono el boton
-         * hacer un filtrado
-         * ¿crear obj cantidad que reciba id y cantidad?
-         */
-        const objCantidad={
-            id: obj.id,
-            cantidad: obj.cantidad+1
+        const nuevoCarrito = carrito.map((dato) => {
+            if (dato.id === obj.id) {
+                dato.cantidad += 1;
+                return dato;
+            } else {
+                return dato;
+            }
+        });
+
+        setCarrito(nuevoCarrito);
+    }
+
+    function handleDisminuir(obj) {
+        if (obj.cantidad > 1) {
+            const nuevoCarrito = carrito.map((dato) => {
+                if (dato.id === obj.id) {
+                    dato.cantidad -= 1;
+                    return dato;
+                } else {
+                    return dato;
+                }
+            });
+
+            setCarrito(nuevoCarrito);
         }
-        console.log(objCantidad);
     }
 
     return (
@@ -55,7 +70,8 @@ function Carrito({ carrito, setCarrito }) {
                         <tr>
                             <th scope="col">Nombre</th>
                             <th scope="col">Tipo</th>
-                            <th scope="col">Precio</th>
+                            <th scope="col">Precio Unitario</th>
+                            <th scope="col">Precio Total</th>
                             <th scope="col">Cantidad</th>
                             <th scope="col">Acción</th>
                         </tr>
@@ -66,7 +82,8 @@ function Carrito({ carrito, setCarrito }) {
                                 <td>{datos.nombre}</td>
                                 <td>{datos.tipo}</td>
                                 <td>${Number(datos.precio).toLocaleString('es-CO')}</td>
-                                <td><input type='submit' value='-' onClick={() => { }} />{datos.cantidad}<input type='submit' value='+' onClick={() => { handleAumentar(datos) }} /></td>
+                                <td>${Number(datos.precio*datos.cantidad).toLocaleString('es-CO')}</td>
+                                <td><input type='submit' value='-' onClick={() => { handleDisminuir(datos) }} />{datos.cantidad}<input type='submit' value='+' onClick={() => { handleAumentar(datos) }} /></td>
                                 <td><button type="submit" className='btn btn-danger' onClick={() => { handleEliminar(datos.id) }}>Eliminar</button></td>
                             </tr>
                         ))}
